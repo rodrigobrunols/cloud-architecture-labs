@@ -1,0 +1,23 @@
+# Terraform exclusions
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl
+
+# Python & Environment exclusions
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.chrome_data/
+.chrome_temp/
+
+# OS & IDE exclusions
+.DS_Store
+.idea/
+.vscode/
+*.log
