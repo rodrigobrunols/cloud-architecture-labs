@@ -15,6 +15,8 @@ Colocar assets estáticos (imagens de 5MB, banners, fontes, arquivos JavaScript)
 
 ## 🏛️ Diagrama de Arquitetura
 
+![CloudFront Behaviors Architecture Blueprint](./behaviors.png)
+
 ```mermaid
 flowchart TD
     User([👤 Cliente / Navegador]) --> CF[🌐 Amazon CloudFront Distribution\nDomínio Único: mystore.com]
@@ -91,6 +93,6 @@ terraform apply
 
 ---
 
-## 📄 Material Visual (Carrossel LinkedIn)
-O arquivo PDF pronto para publicação encontra-se neste diretório:
-* **[carrossel_cloudfront_behaviors.pdf](./carrossel_cloudfront_behaviors.pdf)**
+## 📄 Material Visual (Blueprint & Carrossel)
+* **Blueprint da Arquitetura:** [behaviors.png](./behaviors.png)
+* **Carrossel LinkedIn (PDF):** [carrossel_cloudfront_behaviors.pdf](./carrossel_cloudfront_behaviors.pdf)

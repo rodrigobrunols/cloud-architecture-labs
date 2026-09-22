@@ -13,9 +13,9 @@ O objetivo principal é transformar conceitos de alta disponibilidade, escalabil
 
 ## 📚 Índice de Labs Semanais
 
-| Lab | Tópico Principal | Serviços AWS | Código / Lab | Carrossel PDF |
+| Lab | Tópico Principal | Serviços AWS | Código / Lab | Blueprint & Carrossel |
 | :---: | :--- | :--- | :---: | :---: |
-| **#01** | **Roteamento Inteligente na Edge com CloudFront Behaviors** | CloudFront, S3, ALB, OAC | [Acessar Lab](./01-cloudfront-behaviors) | [Baixar PDF](./01-cloudfront-behaviors/carrossel_cloudfront_behaviors.pdf) |
+| **#01** | **Roteamento Inteligente na Edge com CloudFront Behaviors** | CloudFront, S3, ALB, OAC | [Acessar Lab](./01-cloudfront-behaviors) | [Blueprint](./01-cloudfront-behaviors/behaviors.png) • [PDF](./01-cloudfront-behaviors/carrossel_cloudfront_behaviors.pdf) |
 | **#02** | *Em breve...* | — | — | — |
 
 ---
