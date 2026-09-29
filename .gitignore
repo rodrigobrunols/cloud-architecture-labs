@@ -8,8 +8,10 @@
 
 # Python & Environment exclusions
 __pycache__/
+*.py
 *.py[cod]
 *$py.class
+LINKEDIN_*
 .venv/
 env/
 venv/
