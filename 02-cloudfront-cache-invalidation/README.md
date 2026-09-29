@@ -154,9 +154,3 @@ terraform plan
 # 6. Aplique a infraestrutura na AWS
 terraform apply
 ```
-
----
-
-## 📄 Material Visual (Blueprint & Carrossel)
-* **Blueprint da Arquitetura:** [architecture.png](./architecture.png)
-* **Carrossel LinkedIn:** [carrossel_cloudfront_cache_invalidation.ppp](./carrossel_cloudfront_cache_invalidation.ppp)
