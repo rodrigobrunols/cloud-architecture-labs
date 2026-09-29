@@ -16,7 +16,7 @@ Executar `aws cloudfront create-invalidation --paths "/*"` a cada deploy em pipe
 
 ## 🏛️ Fluxo do Pipeline CI/CD & Arquitetura
 
-![CloudFront Invalidation Architecture Blueprint](./invalidation.png)
+![CloudFront Invalidation Architecture Blueprint](./architecture.png)
 
 ```mermaid
 flowchart TD

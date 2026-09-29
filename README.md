@@ -15,8 +15,8 @@ O objetivo principal é transformar conceitos de alta disponibilidade, escalabil
 
 | Lab | Tópico Principal | Serviços AWS | Código / Lab | Blueprint & Carrossel |
 | :---: | :--- | :--- | :---: | :---: |
-| **#01** | **Roteamento Inteligente na Edge com CloudFront Behaviors** | CloudFront, S3, ALB, OAC | [Acessar Lab](./01-cloudfront-behaviors) | [Blueprint](./01-cloudfront-behaviors/behaviors.png) • [PDF](./01-cloudfront-behaviors/carrossel_cloudfront_behaviors.pdf) |
-| **#02** | **Invalidação Cirúrgica no CloudFront & CI/CD** | CloudFront, S3, IAM, GitHub Actions | [Acessar Lab](./02-cloudfront-cache-invalidation) | [Blueprint](./02-cloudfront-cache-invalidation/invalidation.png) • [PDF](./02-cloudfront-cache-invalidation/carrossel_cloudfront_cache_invalidation.pdf) |
+| **#01** | **Roteamento Inteligente na Edge com CloudFront Behaviors** | CloudFront, S3, ALB, OAC | [Acessar Lab](./01-cloudfront-behaviors) | [Blueprint](./01-cloudfront-behaviors/behaviors.png) |
+| **#02** | **Invalidação Cirúrgica no CloudFront & CI/CD** | CloudFront, S3, IAM, GitHub Actions | [Acessar Lab](./02-cloudfront-cache-invalidation) | [Blueprint](./02-cloudfront-cache-invalidation/architecture.png) |
 | **#03** | *Em breve...* | — | — | — |
 
 ---

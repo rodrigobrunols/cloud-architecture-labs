@@ -25,4 +25,5 @@ venv/
 .vscode/
 *.log
 *.zip
+*.pdf
 
