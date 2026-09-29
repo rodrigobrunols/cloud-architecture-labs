@@ -118,9 +118,10 @@ jobs:
 
 * **Bucket S3 Privado:** Configurado com bloqueio de acesso público total e criptografia AES256.
 * **Origin Access Control (OAC):** Configuração segura que restringe o acesso ao bucket S3 apenas à distribuição CloudFront.
-* **Distribuição CloudFront:**
-  * Behavior `/assets/*` apontando para o S3 com a política `Managed-CachingOptimized`.
-  * Behavior `/api/*` apontando para o ALB com `Managed-CachingDisabled`.
+* **Distribuição CloudFront com Múltiplos Behaviors:**
+  * Behavior `/assets/*` apontando para o S3 com a política `Managed-CachingOptimized` (Cache de 1 ano para bundles com hash).
+  * Behavior `/api/catalog/*` apontando para o ALB com política customizada (`TTL=60s` + cache por Query String + suporte a SWR).
+  * Behavior `/api/*` apontando para o ALB com `Managed-CachingDisabled` e repasse total de cookies e tokens de Auth.
   * Default Behavior para roteamento do React SPA e respostas customizadas de erro (403/404 redirecionados para `/index.html`).
 * **IAM Role & Policy de Menor Privilégio:** Permissões estritas para o runner do CI/CD fazer upload no S3 e executar `cloudfront:CreateInvalidation` exclusivamente no ARN da distribuição.
 
@@ -157,5 +158,5 @@ terraform apply
 ---
 
 ## 📄 Material Visual (Blueprint & Carrossel)
-* **Blueprint da Arquitetura:** [invalidation.png](./invalidation.png)
-* **Carrossel LinkedIn (PDF):** [carrossel_cloudfront_cache_invalidation.pdf](./carrossel_cloudfront_cache_invalidation.pdf)
+* **Blueprint da Arquitetura:** [architecture.png](./architecture.png)
+* **Carrossel LinkedIn:** [carrossel_cloudfront_cache_invalidation.ppp](./carrossel_cloudfront_cache_invalidation.ppp)

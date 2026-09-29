@@ -36,6 +36,29 @@ data "aws_cloudfront_origin_request_policy" "all_viewer_except_host" {
   name = "Managed-AllViewerExceptHostHeader"
 }
 
+# Política Customizada de Cache para a API de Catálogo (com suporte a Query Strings & SWR)
+resource "aws_cloudfront_cache_policy" "catalog_api_cache_policy" {
+  name        = "${var.project_name}-catalog-cache-policy"
+  comment     = "Cache para API de Catalogo e Produtos (TTL 60s + Query Strings no Cache Key)"
+  default_ttl = 60
+  max_ttl     = 300
+  min_ttl     = 0
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none" # APIs de catálogo não variam por cookie
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "all" # Importante: ?page=1, ?cat=shoes são cacheados separadamente
+    }
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
+  }
+}
+
 # ==============================================================================
 # ORIGIN ACCESS CONTROL (OAC) FOR SECURE S3 ORIGINS
 # ==============================================================================
@@ -90,14 +113,14 @@ resource "aws_s3_bucket_policy" "frontend" {
 }
 
 # ==============================================================================
-# CLOUDFRONT DISTRIBUTION COM ESTRATÉGIA DE CACHE CIRÚRGICA
+# CLOUDFRONT DISTRIBUTION COM MÚLTIPLOS BEHAVIORS E INVALIDAÇÃO CIRÚRGICA
 # ==============================================================================
 
 resource "aws_cloudfront_distribution" "ecommerce_cdn" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  comment             = "E-Commerce App - Cache Invalidation Strategy (${var.environment})"
+  comment             = "E-Commerce App - Multiple API Behaviors & Cache Invalidation (${var.environment})"
 
   # ----------------------------------------------------------------------------
   # ORIGENS
@@ -141,7 +164,25 @@ resource "aws_cloudfront_distribution" "ecommerce_cdn" {
   }
 
   # ----------------------------------------------------------------------------
-  # BEHAVIOR 1: /api/* (Backend Transacional & Carrinho)
+  # BEHAVIOR 1: /api/catalog/* e /api/products/* (API de Catálogo / Vitrine)
+  # Estratégia: Edge Cache ativo (TTL 60s + SWR) com cache por Query String
+  # ----------------------------------------------------------------------------
+  ordered_cache_behavior {
+    path_pattern     = "/api/catalog/*"
+    target_origin_id = "ALB-Backend"
+
+    allowed_methods = ["GET", "HEAD", "OPTIONS"]
+    cached_methods  = ["GET", "HEAD"]
+
+    cache_policy_id          = aws_cloudfront_cache_policy.catalog_api_cache_policy.id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewer_except_host.id
+
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = true
+  }
+
+  # ----------------------------------------------------------------------------
+  # BEHAVIOR 2: /api/* (APIs Transacionais: Checkout, Carrinho, Auth)
   # Estratégia: Cache desativado, repassa headers, cookies e query parameters.
   # ----------------------------------------------------------------------------
   ordered_cache_behavior {
@@ -159,7 +200,7 @@ resource "aws_cloudfront_distribution" "ecommerce_cdn" {
 
   # ----------------------------------------------------------------------------
   # DEFAULT BEHAVIOR: SPA Entrypoint (index.html e rotas do React)
-  # Estratégia: Cache com TTL mínimo/revalidação obrigatória.
+  # Estratégia: Cache com revalidação obrigatória.
   # Único objeto que sofre invalidação no CI/CD: /index.html
   # ----------------------------------------------------------------------------
   default_cache_behavior {
@@ -201,7 +242,6 @@ resource "aws_cloudfront_distribution" "ecommerce_cdn" {
 # IAM ROLE & POLICIES COM MENOR PRIVILÉGIO PARA O PIPELINE DE CI/CD
 # ==============================================================================
 
-# Política permitindo apenas o Sync no S3 e Invalidação Cirúrgica no CloudFront
 data "aws_iam_policy_document" "cicd_deployer_policy" {
   statement {
     sid       = "AllowS3Deploy"
@@ -225,13 +265,12 @@ resource "aws_iam_policy" "cicd_deployer" {
   policy      = data.aws_iam_policy_document.cicd_deployer_policy.json
 }
 
-# Role do CI/CD (exemplo com Trust Policy básica)
 data "aws_iam_policy_document" "cicd_trust_policy" {
   statement {
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"] # Pode ser configurado com OIDC para GitHub Actions
+      identifiers = ["ec2.amazonaws.com"]
     }
   }
 }
