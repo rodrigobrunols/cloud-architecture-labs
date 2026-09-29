@@ -11,7 +11,7 @@ __pycache__/
 *.py
 *.py[cod]
 *$py.class
-LINKEDIN_*
+LINK*
 .venv/
 env/
 venv/
