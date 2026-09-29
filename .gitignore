@@ -15,6 +15,7 @@ env/
 venv/
 .chrome_data/
 .chrome_temp/
+.agents
 
 # OS & IDE exclusions
 .DS_Store

@@ -1,0 +1,5 @@
+aws_region       = "us-east-1"
+project_name     = "ecommerce-cache-lab"
+environment      = "prod"
+api_alb_dns_name = "api.ecommerce.internal"
+github_repo      = "rodrigobrunols/cloud-architecture-labs"
