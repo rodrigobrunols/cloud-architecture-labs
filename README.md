@@ -17,7 +17,8 @@ O objetivo principal é transformar conceitos de alta disponibilidade, escalabil
 | :---: | :--- | :--- | :---: | :---: |
 | **#01** | **Roteamento Inteligente na Edge com CloudFront Behaviors** | CloudFront, S3, ALB, OAC | [Acessar Lab](./01-cloudfront-behaviors) | [Blueprint](./01-cloudfront-behaviors/behaviors.png) |
 | **#02** | **Invalidação Cirúrgica no CloudFront & CI/CD** | CloudFront, S3, IAM, GitHub Actions | [Acessar Lab](./02-cloudfront-cache-invalidation) | [Blueprint](./02-cloudfront-cache-invalidation/architecture.png) |
-| **#03** | *Em breve...* | — | — | — |
+| **#03** | **Connection Pooling com HikariCP: reduza o hold time antes de aumentar o pool** | PostgreSQL, HikariCP, RDS Proxy | [Acessar Lab](./03-connection-pooling-hikaricp) | — |
+| **#04** | *Em breve...* | — | — | — |
 
 ---
 

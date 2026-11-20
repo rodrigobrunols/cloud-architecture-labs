@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ConnectionPollHikariCPRDSProxy
+  datasource:
+    url: jdbc:postgresql://localhost:5433/lab
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 3000  # run 1 used 30000 (HikariCP default); runs 2 and 3 use 3000
+management:
+  endpoints.web.exposure.include: health,metrics
